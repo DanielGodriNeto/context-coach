@@ -25,3 +25,8 @@ export function resetMessage(tokens: number): string {
   if (laps < 1) return 'Perto do limite: prepare o handoff'
   return `Passou de ${k(RESET_AT)} (${laps.toFixed(1)}x): hora de continuar em sessão nova`
 }
+
+export function handoffFor(feature: string, base: string): string {
+  const f = feature.trim()
+  return f === '' ? base : `${base} Foque só nesta feature: ${f}.`
+}

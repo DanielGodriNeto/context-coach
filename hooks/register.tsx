@@ -1,7 +1,7 @@
 import { atom, read, update } from 'claude-code'
 import type { Register } from 'claude-code'
 
-import { barOf, ctxLine, LIMIT_WARN, resetMessage } from './logic'
+import { barOf, ctxLine, handoffFor, LIMIT_WARN, resetMessage } from './logic'
 
 const HANDOFF_PROMPT =
   'Faça o handoff: grave o resumo em HANDOFF-<projeto>.md (objetivo, arquivos alterados, comando de teste, decisões abertas, próximo passo) e me dê a frase pronta para colar na sessão nova.'
@@ -25,7 +25,7 @@ export const register: Register = on => {
 
   on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) => {
     const { tokens, five } = await read($, usage)
-    const { Box, Button, Text } = $.ui.resolve(e)
+    const { Box, Button, Input, Text } = $.ui.resolve(e)
     const bar = barOf(tokens)
     return (
       <Box flexDirection="column" width="100%">
@@ -44,10 +44,11 @@ export const register: Register = on => {
           <Text dimColor>75%</Text>
           <Text dimColor>100%</Text>
         </Box>
-        <Box>
+        <Box gap={2}>
           <Button key="handoff" label="Gerar handoff" onPress={() => $.prompt.fill({ text: HANDOFF_PROMPT })} />
           <Button key="compact" label="Compactar" onPress={() => $.prompt.fill({ text: '/compact' })} />
           <Button key="usage" label="Ver uso" onPress={() => $.prompt.fill({ text: '/usage' })} />
+          <Input key="feature" label="Handoff da feature:" placeholder="ex.: login com Google" submitLabel="gerar" onSubmit={value => $.prompt.fill({ text: handoffFor(value, HANDOFF_PROMPT) })} />
         </Box>
       </Box>
     )
