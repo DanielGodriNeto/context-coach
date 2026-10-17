@@ -2,9 +2,7 @@
 
 Uma faixa permanente acima do prompt do Claude Code que mostra, em uma barra de largura total, quanto do contexto você já gastou, e te ajuda a decidir a hora de fazer um handoff e abrir uma sessão nova.
 
-![Primeira volta](docs/band-lap1.svg)
-
-> As imagens deste README são ilustrações fiéis ao layout, desenhadas à mão (SVG), não capturas de tela do app.
+![context-coach no Claude Code](docs/screenshot.png)
 
 ## O que ele faz
 
@@ -15,6 +13,8 @@ Uma faixa permanente acima do prompt do Claude Code que mostra, em uma barra de 
 - **Três botões de atalho:** Gerar handoff, Compactar e Ver uso. Eles só escrevem o texto na caixa do prompt; você aperta Enter.
 - **Handoff de uma feature:** digite no campo qual feature quer e dê Enter. O pedido de handoff vai para a caixa já com "Foque só nesta feature: ...".
 - **Português, inglês e espanhol:** o mod detecta o idioma pela sua última mensagem e troca os botões e o texto do handoff.
+
+Segunda volta e versão em inglês (ilustrações em SVG, não capturas):
 
 ![Segunda volta](docs/band-lap2.svg)
 
