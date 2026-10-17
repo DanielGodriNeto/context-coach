@@ -1,14 +1,19 @@
 import { atom, read, update } from 'claude-code'
 import type { Register } from 'claude-code'
 
-import { barOf, ctxLine, handoffFor, LIMIT_WARN, resetMessage } from './logic'
+import { barOf, ctxLine, detectLang, handoffFor, LIMIT_WARN, resetMessage, TEXTS } from './logic'
+import type { Lang } from './logic'
 
-const HANDOFF_PROMPT =
-  'Faça o handoff: grave o resumo em HANDOFF-<projeto>.md (objetivo, arquivos alterados, comando de teste, decisões abertas, próximo passo) e me dê a frase pronta para colar na sessão nova.'
 const usage = atom({ plugin: 'context-coach', key: 'usage' } as const, { tokens: 0, five: null })
 
 export const register: Register = on => {
   let isLimitWarned = false
+  let lang: Lang = 'pt'
+
+  on('prompt.submit', async ($, e, next) => {
+    lang = detectLang(e.text, lang)
+    return next(e)
+  }).catch(($, e, next) => next(e))
 
   on('turn.complete', async ($, e, next) => {
     const { context, rateLimits } = await $.session.usage()
@@ -27,6 +32,7 @@ export const register: Register = on => {
     const { tokens, five } = await read($, usage)
     const { Box, Button, Input, Text } = $.ui.resolve(e)
     const bar = barOf(tokens)
+    const t = TEXTS[lang]
     return (
       <Box flexDirection="column" width="100%">
         <Box>
@@ -44,11 +50,13 @@ export const register: Register = on => {
           <Text dimColor>75%</Text>
           <Text dimColor>100%</Text>
         </Box>
-        <Box gap={2}>
-          <Button key="handoff" label="Gerar handoff" onPress={() => $.prompt.fill({ text: HANDOFF_PROMPT })} />
-          <Button key="compact" label="Compactar" onPress={() => $.prompt.fill({ text: '/compact' })} />
-          <Button key="usage" label="Ver uso" onPress={() => $.prompt.fill({ text: '/usage' })} />
-          <Input key="feature" label="Handoff da feature:" placeholder="ex.: login com Google" submitLabel="gerar" onSubmit={value => $.prompt.fill({ text: handoffFor(value, HANDOFF_PROMPT) })} />
+        <Box width="100%" justifyContent="space-between">
+          <Button key="handoff" label={t.handoff} onPress={() => $.prompt.fill({ text: t.prompt })} />
+          <Button key="compact" label={t.compact} onPress={() => $.prompt.fill({ text: '/compact' })} />
+          <Button key="usage" label={t.usage} onPress={() => $.prompt.fill({ text: '/usage' })} />
+          <Box flexGrow={1} marginLeft={2}>
+            <Input key="feature" label={t.label} placeholder={t.placeholder} submitLabel={t.submit} onSubmit={value => $.prompt.fill({ text: handoffFor(value, t.prompt, t.focus) })} />
+          </Box>
         </Box>
       </Box>
     )
