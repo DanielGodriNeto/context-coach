@@ -50,11 +50,11 @@ export const register: Register = on => {
           <Text dimColor>75%</Text>
           <Text dimColor>100%</Text>
         </Box>
-        <Box width="100%" justifyContent="space-between">
+        <Box width="100%" gap={3}>
           <Button key="handoff" label={t.handoff} onPress={() => $.prompt.fill({ text: t.prompt })} />
           <Button key="compact" label={t.compact} onPress={() => $.prompt.fill({ text: '/compact' })} />
           <Button key="usage" label={t.usage} onPress={() => $.prompt.fill({ text: '/usage' })} />
-          <Box flexGrow={1} marginLeft={2}>
+          <Box flexGrow={1} flexShrink={0} width="60%">
             <Input key="feature" label={t.label} placeholder={t.placeholder} submitLabel={t.submit} onSubmit={value => $.prompt.fill({ text: handoffFor(value, t.prompt, t.focus) })} />
           </Box>
         </Box>

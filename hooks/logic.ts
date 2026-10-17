@@ -47,10 +47,10 @@ export function detectLang(text: string, fallback: Lang): Lang {
 }
 
 export const TEXTS: Record<Lang, { handoff: string; compact: string; usage: string; label: string; placeholder: string; submit: string; prompt: string; focus: string }> = {
-  pt: { handoff: 'Gerar handoff', compact: 'Compactar', usage: 'Ver uso', label: 'Handoff de uma feature:', placeholder: 'Escreva qual feature quer no handoff e dê Enter', submit: 'gerar',
+  pt: { handoff: 'Gerar handoff', compact: 'Compactar', usage: 'Ver uso', label: 'Handoff de uma feature:', placeholder: 'Qual feature? Escreva e dê Enter', submit: 'gerar',
     prompt: 'Faça o handoff: grave o resumo em HANDOFF-<projeto>.md (objetivo, arquivos alterados, comando de teste, decisões abertas, próximo passo) e me dê a frase pronta para colar na sessão nova.', focus: 'Foque só nesta feature' },
-  en: { handoff: 'Create handoff', compact: 'Compact', usage: 'View usage', label: 'Handoff for one feature:', placeholder: 'Type which feature the handoff should cover, then Enter', submit: 'go',
+  en: { handoff: 'Create handoff', compact: 'Compact', usage: 'View usage', label: 'Handoff for one feature:', placeholder: 'Which feature? Type and press Enter', submit: 'go',
     prompt: 'Do the handoff: write the summary to HANDOFF-<project>.md (goal, changed files, test command, open decisions, next step) and give me the ready-to-paste opening line for the new session.', focus: 'Focus only on this feature' },
-  es: { handoff: 'Crear handoff', compact: 'Compactar', usage: 'Ver uso', label: 'Handoff de una feature:', placeholder: 'Escribe qué feature quieres en el handoff y pulsa Enter', submit: 'crear',
+  es: { handoff: 'Crear handoff', compact: 'Compactar', usage: 'Ver uso', label: 'Handoff de una feature:', placeholder: '¿Qué feature? Escribe y pulsa Enter', submit: 'crear',
     prompt: 'Haz el handoff: guarda el resumen en HANDOFF-<proyecto>.md (objetivo, archivos cambiados, comando de prueba, decisiones abiertas, siguiente paso) y dame la frase lista para pegar en la sesión nueva.', focus: 'Enfócate solo en esta feature' },
 }
