@@ -1,0 +1,5 @@
+{
+  "name": "context-coach",
+  "owner": { "name": "DanielGodriNeto" },
+  "plugins": [{ "name": "context-coach", "source": "./" }]
+}

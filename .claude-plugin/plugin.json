@@ -1,0 +1,1 @@
+{ "name": "context-coach", "version": "0.3.0", "description": "Band above the prompt with an ASCII context ring, 5h usage and a reset nudge.", "types": "./types/index.d.ts" }
